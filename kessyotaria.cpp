@@ -6,6 +6,37 @@
 #include <fstream>
 using namespace std;
 #undef main
+
+void ler_playlist(){
+    ifstream ler;
+    string linha;
+    ler.open("lista_musica.txt");
+    if(ler.is_open()){
+        while(getline(ler,linha)){
+            if(linha!="."||linha!="..")
+                cout<<linha<<endl;
+
+        }
+    }cout<<endl<<endl<<endl<<endl<<endl;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main()
 {
  SDL_Init(SDL_INIT_EVERYTHING);
@@ -21,7 +52,7 @@ int main()
 
  Mix_OpenAudio(frequencia,formato,canal,buffer);//inicia o audio
  //Mix_Chunk *som;// para efeitos
- Mix_Music *musica;// para musicas
+ Mix_Music *musica[99];// para musicas
 
 
  //som= Mix_LoadWAV("Pow.wav");
@@ -36,24 +67,39 @@ int main()
  }
  while ((lsdir=readdir(dir))!=NULL)
  {
+
      cout<<endl<<lsdir->d_name;
-     arquivosom<<endl<<lsdir->d_name;
+     arquivosom<<endl<<"C:/teste/"<<lsdir->d_name;
 
  }
 
 
- char *caminho="musica.mp3";
- musica= Mix_LoadMUS(("C:/teste/beyblade.mp3"));
 
+string local[2];
+local[0]="C:/teste/simone-simaria-amor-que-doi-vctemvoz.mp3";
+local[1]="C:/teste/shawn-mendes-camila-cabello-senorita-live-from-the-amas-2019.mp3";
+// char *caminho="musica.mp3";
+ //musica= Mix_LoadMUS(local[1].c_str());
+ler_playlist();
  closedir(dir);
-
+int aux=0;
 //Mix_PlayChannel(-1,som,0);
-Mix_PlayMusic(musica,0);
+musica[9]=Mix_LoadMUS(local[1].c_str());
+
+
+Mix_PlayMusic(musica[9],0);
+
 while(1){
+if(aux==9999){
+    musica[8]=Mix_LoadMUS(local[0].c_str());
+    Mix_PlayMusic(musica[8],0);
+
+}
+aux++;
 
 }
 
  Mix_CloseAudio();
  //Mix_FreeChunk(som);
-Mix_FreeMusic(musica);
+Mix_FreeMusic(musica[8]);
 }
